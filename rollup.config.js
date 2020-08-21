@@ -2,6 +2,7 @@ import svelte from 'rollup-plugin-svelte'
 import resolve from '@rollup/plugin-node-resolve'
 import commonjs from '@rollup/plugin-commonjs'
 import livereload from 'rollup-plugin-livereload'
+import json from '@rollup/plugin-json';
 import svg from 'rollup-plugin-svg'
 import { terser } from 'rollup-plugin-terser'
 import copy from 'rollup-plugin-copy'
@@ -62,6 +63,7 @@ export default {
       dedupe: ['svelte'],
     }),
     commonjs(),
+    json(),
     svg({ base64: true }),
     copy({
       targets: [
