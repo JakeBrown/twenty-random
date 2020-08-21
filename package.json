@@ -1,0 +1,30 @@
+{
+  "name": "svelte-app",
+  "version": "1.0.0",
+  "scripts": {
+    "build": "rollup -c",
+    "dev": "rollup -c -w",
+    "start": "sirv public --single",
+    "format": "npx prettier --write \"{,!(node_modules|__sapper__)/**/}*.{js,html,css,svelte}\""
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^14.0.0",
+    "@rollup/plugin-node-resolve": "^8.0.0",
+    "prettier": "^2.0.5",
+    "rollup": "^2.3.4",
+    "rollup-plugin-livereload": "^1.0.0",
+    "rollup-plugin-svelte": "^5.0.3",
+    "rollup-plugin-svg": "^2.0.0",
+    "rollup-plugin-terser": "^6.0.0",
+    "svelte": "^3.0.0"
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.14.0",
+    "@fortawesome/fontawesome-svg-core": "^1.2.30",
+    "@fortawesome/free-solid-svg-icons": "^5.14.0",
+    "normalize.css": "^8.0.1",
+    "prettier-plugin-svelte": "^1.1.0",
+    "rollup-plugin-copy": "^3.3.0",
+    "sirv-cli": "^1.0.0"
+  }
+}
