@@ -104,8 +104,8 @@
 
 <main>
   <h1>Twenty Random</h1>
-  <p>Your mission is to remember these twenty random images.</p>
   {#if step1Complete}
+    <p>Now see if you can pick the twenty images you saw on the last screen.</p>
     <button class="checkButton" on:click={checkResults}>
       Check my results!
     </button>
@@ -115,6 +115,7 @@
     </div>
   {:else}
     <div class="timer">Timer: {stopwatch}</div>
+    <p>Your mission is to remember these twenty random images.</p>
     <button class="step2Button" on:click={step2}>Done</button>
     <div class="iconPanel">
       <IconPanel numItems="20" selectable={false} />
