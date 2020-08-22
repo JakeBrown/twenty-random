@@ -1,79 +1,84 @@
 <style>
   h1 {
     text-transform: uppercase;
-    font-size: 3em;
-    font-weight: 100;
+    font-size: 1.5em;
+    font-weight: bold;
+  }
+
+  .intro {
+    min-height: 300px;
+  }
+  .controls {
+    display: flex;
+    width: 80%;
+    margin-bottom: 50px;
+    height: 80px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .controls > button {
+    font-size: 1em;
+    padding: 10px;
+    margin: 10px;
+    width: 200px;
+    background-color: var(--blue);
+    display: flex;
+    align-items: center;
+    color: var(--yellow);
+    border: none;
+    justify-content: center;
+  }
+  button:hover {
+    cursor: pointer;
   }
 
   .timer {
     text-transform: uppercase;
-    font-size: 1.5em;
-    padding-bottom: 50px;
-  }
-
-  .step2Button {
-    text-transform: uppercase;
-    font-size: 1.5em;
-    padding: 20px;
-    background-color: #4caf50;
-    margin-bottom: 50px;
-    height: 100px;
-  }
-
-  .checkButton {
-    text-transform: uppercase;
-    font-size: 1.5em;
-    padding: 20px;
-    background-color: #4caf50;
-    margin-bottom: 50px;
-    height: 100px;
+    font-size: 1em;
+    height: 100%;
+    width: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .iconPanel {
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    align-content: center;
+    width: 600px;
+    min-height: 400px;
+    margin-bottom: 50px;
   }
 
-  .active {
-    background-color: yellow;
+  @media screen and (max-width: 600px) {
+    .iconPanel {
+      width: 100%;
+      min-height: 600px;
+    }
   }
 
   main {
-    text-align: center;
-    height: 100vh;
     display: flex;
     flex-direction: column;
+    text-align: center;
     align-items: center;
+    justify-content: space-evenly;
+    margin-bottom: var(--footer-height);
   }
 
   p {
     font-size: 1.2em;
   }
-
-  .container {
-    display: flex;
-    justify-content: space-evenly;
-    flex-wrap: wrap;
-    align-content: center;
-    margin: 100px;
-    width: 600px;
-  }
-
-  .el {
-    margin: 5px;
-    margin-bottom: 5px;
-    width: 100px;
-    height: 100px;
-    flex-direction: column;
-    text-align: center;
-    text-transform: uppercase;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
-  }
 </style>
 
 <script>
   import IconPanel from './IconPanel.svelte'
+  import Icon from './Icon.svelte'
+  import Footer from './Footer.svelte'
   import iconsJson from './icons.json'
   function shuffle(array) {
     var currentIndex = array.length,
@@ -97,8 +102,9 @@
 
   let iconList = iconsJson['icons']
   let step1Complete = false
+  let started = false
 
-  let colors = ['blue', 'green', 'black', 'red', 'pink', 'salmon']
+  let colors = ['blue', 'green', 'black']
   let chosenIcons = []
   while (chosenIcons.length < 20) {
     let num = getRndInteger(0, iconList.length)
@@ -139,6 +145,7 @@
   }
 
   function reset() {
+    stopwatch = 0
     step1Complete = false
     selectedItems = []
   }
@@ -155,6 +162,12 @@
     alert('Selected: ' + selectedItems.length + '. Correct: ' + score)
   }
 
+  function go() {
+    started = true
+    stopwatch = 0
+    run()
+  }
+
   function sleep(ms) {
     return new Promise((resolve) => setTimeout(resolve, ms))
   }
@@ -165,27 +178,49 @@
       await sleep(1000)
     }
   }
-  run()
   let selectedItems = []
 </script>
 
 <main>
-  <h1>Twenty Random</h1>
-  {#if !step1Complete}
-    <div class="timer">Timer: {stopwatch}</div>
-    <p>Your mission is to remember these twenty random images.</p>
-    <button class="step2Button" on:click={step2}>Done</button>
+  {#if !started}
+    <div class="intro">
+      <h1>Twenty Random</h1>
+      <p>
+        <b>The goal</b>
+        is to memorize 20 random images. As quickly as possible.
+      </p>
+      <p>
+        You will need to actively memorize using chunking or another mnemunic.
+      </p>
+    </div>
+    <div class="controls">
+      <button on:click={go}>Go!</button>
+    </div>
+  {:else if !step1Complete}
+    <p>
+      <b>Your time</b>
+      has started! Memorize these images and then click
+      <b>Done</b>
+    </p>
+    <div class="controls">
+      <div class="timer">
+        <Icon name="clock" size="20px" />
+        <span style="margin-left: 10px">{stopwatch}</span>
+      </div>
+      <button on:click={step2}>Done! Stop the clock!</button>
+    </div>
     <div class="iconPanel">
       <IconPanel icons={chosenIcons} selectable={false} />
     </div>
   {:else}
     <p>Now see if you can pick the twenty images you saw on the last screen.</p>
-    <button class="checkButton" on:click={checkResults}>
-      Check my results!
-    </button>
-    <button class="reset" on:click={reset}>Reset</button>
     <div class="iconPanel">
       <IconPanel icons={allIcons} bind:selectedItems selectable={true} />
     </div>
+    <div class="controls">
+      <button on:click={checkResults}>Check my results!</button>
+      <button class="resetButton" on:click={reset}>Reset</button>
+    </div>
   {/if}
 </main>
+<Footer />

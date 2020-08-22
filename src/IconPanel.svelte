@@ -1,20 +1,20 @@
 <style>
   .active {
-    background-color: yellow;
+    background-color: var(--pink);
   }
 
   .container {
     display: flex;
     justify-content: space-evenly;
     flex-wrap: wrap;
-    align-content: center;
+    align-content: space-evenly;
+    background-color: var(--yellow);
   }
 
   .el {
-    margin: 5px;
-    margin-bottom: 5px;
     width: 100px;
     height: 100px;
+    margin: 5px;
     flex-direction: column;
     text-align: center;
     text-transform: uppercase;
