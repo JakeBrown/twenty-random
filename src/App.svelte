@@ -5,19 +5,43 @@
     font-weight: bold;
   }
 
+  .footer {
+    background-color: var(--blue);
+    width: 100%;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 1.2rem;
+  }
+  a {
+    color: yellow;
+    font-weight: bold;
+    text-decoration: none;
+  }
+
+  .page-body {
+    flex-grow: 1;
+    min-height: 500px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
   .intro {
     min-height: 200px;
     background-color: var(--blue);
     padding: 20px;
+    text-align: center;
     margin: 50px;
   }
   .controls {
     display: flex;
-    width: 80%;
     margin-bottom: 50px;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
   }
 
   .controls > button {
@@ -40,7 +64,6 @@
     text-transform: uppercase;
     font-size: 1rem;
     height: 100%;
-    width: 200px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -50,7 +73,6 @@
     display: flex;
     justify-content: space-evenly;
     flex-wrap: wrap;
-    align-content: center;
     width: 600px;
     min-height: 400px;
     margin-bottom: 50px;
@@ -63,12 +85,11 @@
     }
   }
 
-  main {
+  .page {
     display: flex;
     flex-direction: column;
-    text-align: center;
-    align-items: center;
-    justify-content: space-evenly;
+    min-height: 100%;
+    align-content: center;
   }
 
   p {
@@ -78,7 +99,6 @@
 
 <script>
   import IconPanel from './IconPanel.svelte'
-  import Footer from './Footer.svelte'
   import { Icon, iconList } from './icons'
   function shuffle(array) {
     var currentIndex = array.length,
@@ -120,7 +140,7 @@
 
   let allIcons = []
   allIcons.push(...chosenIcons)
-  while (allIcons.length < 60) {
+  while (allIcons.length < 100) {
     let num = getRndInteger(0, iconList.length)
     let iconName = iconList[num]
     let iconColor = colors[getRndInteger(0, colors.length)]
@@ -180,46 +200,56 @@
   let selectedItems = []
 </script>
 
-<main>
-  {#if !started}
-    <div class="intro">
-      <h1>Twenty Random</h1>
+<div class="page">
+  <div class="page-body">
+    {#if !started}
+      <div class="intro">
+        <h1>Twenty Random</h1>
+        <p>
+          <b>The goal</b>
+          is to memorize 20 random images. As quickly as possible.
+        </p>
+        <p>
+          Memorizing isn't just looking at the images and trying to remember them. For most people, active memorization using chunking or another mnemonic device will be more effective.
+        </p>
+      </div>
+      <div class="controls">
+        <button on:click={go}>Go!</button>
+      </div>
+    {:else if !step1Complete}
       <p>
-        <b>The goal</b>
-        is to memorize 20 random images. As quickly as possible.
+        <b>Your time</b>
+        has started! Memorize these images and then click
+        <b>Done</b>
       </p>
+      <div class="timer">
+        <Icon name="clock" size="20px" color="" />
+        <span style="margin-left: 10px">{stopwatch}</span>
+      </div>
+      <div class="controls">
+        <button on:click={step2}>Done!</button>
+      </div>
+      <div class="iconPanel">
+        <IconPanel icons={chosenIcons} selectable={false} />
+      </div>
+    {:else}
       <p>
-        You will need to actively memorize using chunking or another mnemunic.
+        Now see if you can pick the twenty images you saw on the last screen.
       </p>
-    </div>
-    <div class="controls">
-      <button on:click={go}>Go!</button>
-    </div>
-  {:else if !step1Complete}
-    <p>
-      <b>Your time</b>
-      has started! Memorize these images and then click
-      <b>Done</b>
-    </p>
-    <div class="timer">
-      <Icon name="clock" size="20px" color="" />
-      <span style="margin-left: 10px">{stopwatch}</span>
-    </div>
-    <div class="controls">
-      <button on:click={step2}>Done!</button>
-    </div>
-    <div class="iconPanel">
-      <IconPanel icons={chosenIcons} selectable={false} />
-    </div>
-  {:else}
-    <p>Now see if you can pick the twenty images you saw on the last screen.</p>
-    <div class="iconPanel">
-      <IconPanel icons={allIcons} bind:selectedItems selectable={true} />
-    </div>
-    <div class="controls">
-      <button class="resetButton" on:click={reset}>Reset</button>
-      <button on:click={checkResults}>Check</button>
-    </div>
-  {/if}
-</main>
-<Footer />
+      <div class="iconPanel">
+        <IconPanel icons={allIcons} bind:selectedItems selectable={true} />
+      </div>
+      <div class="controls">
+        <button class="resetButton" on:click={reset}>Reset</button>
+        <button on:click={checkResults}>Check</button>
+      </div>
+    {/if}
+  </div>
+
+  <div class="footer">
+    <span>
+      &copy; {new Date().getFullYear()}
+      <a href="https://www.jakebrown.io">Jake Brown</a>
+    </span>
+  </div>
+</div>
