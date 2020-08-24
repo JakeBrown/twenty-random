@@ -29,7 +29,7 @@
   export let icons
   export let selectable
   export let selectedItems = []
-  import Icon from './Icon.svelte'
+  import { Icon } from './icons'
   function clickedIcon(icon) {
     if (!selectable) {
       return

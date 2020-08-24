@@ -1,29 +1,31 @@
 <style>
   h1 {
     text-transform: uppercase;
-    font-size: 1.5em;
+    font-size: 1.5rem;
     font-weight: bold;
   }
 
   .intro {
-    min-height: 300px;
+    min-height: 200px;
+    background-color: var(--blue);
+    padding: 20px;
+    margin: 50px;
   }
   .controls {
     display: flex;
     width: 80%;
     margin-bottom: 50px;
-    height: 80px;
     flex-direction: column;
     align-items: center;
     justify-content: center;
   }
 
   .controls > button {
-    font-size: 1em;
+    font-size: 1.5rem;
     padding: 10px;
     margin: 10px;
     width: 200px;
-    background-color: var(--blue);
+    background-color: var(--pink);
     display: flex;
     align-items: center;
     color: var(--yellow);
@@ -36,7 +38,7 @@
 
   .timer {
     text-transform: uppercase;
-    font-size: 1em;
+    font-size: 1rem;
     height: 100%;
     width: 200px;
     display: flex;
@@ -67,19 +69,17 @@
     text-align: center;
     align-items: center;
     justify-content: space-evenly;
-    margin-bottom: var(--footer-height);
   }
 
   p {
-    font-size: 1.2em;
+    font-size: 1.2rem;
   }
 </style>
 
 <script>
   import IconPanel from './IconPanel.svelte'
-  import Icon from './Icon.svelte'
   import Footer from './Footer.svelte'
-  import iconsJson from './icons.json'
+  import { Icon, iconList } from './icons'
   function shuffle(array) {
     var currentIndex = array.length,
       temporaryValue,
@@ -100,7 +100,6 @@
     return array
   }
 
-  let iconList = iconsJson['icons']
   let step1Complete = false
   let started = false
 
@@ -202,12 +201,12 @@
       has started! Memorize these images and then click
       <b>Done</b>
     </p>
+    <div class="timer">
+      <Icon name="clock" size="20px" color="" />
+      <span style="margin-left: 10px">{stopwatch}</span>
+    </div>
     <div class="controls">
-      <div class="timer">
-        <Icon name="clock" size="20px" />
-        <span style="margin-left: 10px">{stopwatch}</span>
-      </div>
-      <button on:click={step2}>Done! Stop the clock!</button>
+      <button on:click={step2}>Done!</button>
     </div>
     <div class="iconPanel">
       <IconPanel icons={chosenIcons} selectable={false} />
@@ -218,8 +217,8 @@
       <IconPanel icons={allIcons} bind:selectedItems selectable={true} />
     </div>
     <div class="controls">
-      <button on:click={checkResults}>Check my results!</button>
       <button class="resetButton" on:click={reset}>Reset</button>
+      <button on:click={checkResults}>Check</button>
     </div>
   {/if}
 </main>
