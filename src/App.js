@@ -193,7 +193,7 @@ function Step2({ chosenIcons, next, stopwatch, selectedIcons }) {
       </p>
       <div className="timer">
         <Icon name="clock" size="20px" color="" />
-        <span style={{'marginLeft': '10px'}}>{stopwatch}</span>
+        <span style={{ marginLeft: '10px' }}>{stopwatch}</span>
       </div>
       <div className="controls">
         <button
@@ -215,20 +215,26 @@ function Step2({ chosenIcons, next, stopwatch, selectedIcons }) {
   )
 }
 
-function FinalStep() {
+function FinalStep({ icons, next }) {
+  const [selectedItems, setSelectedItems] = useState([])
   return (
     <>
       <p>
         Now see if you can pick the twenty images you saw on the last screen.
       </p>
       <div className="iconPanel">
-        <IconPanel icons={allIcons} selectable={true} selectedItems={selectedItems} setSelectedItems={(items)=>setSelectedItems(items)}/>
+        <IconPanel
+          icons={icons}
+          selectable={true}
+          selectedItems={selectedItems}
+          setSelectedItems={(items) => setSelectedItems(items)}
+        />
       </div>
       <div className="controls">
         <button className="resetButton" onClick={reset}>
           Reset
         </button>
-        <button onClick={checkResults}>Check</button>
+        <button onClick={() => next(selectedItems)}>Check</button>
       </div>
     </>
   )
@@ -238,7 +244,6 @@ function App() {
   const [step1Complete, setStep1Complete] = useState(false)
   const [started, setStarted] = useState(false)
   const [stopwatch, setStopwatch] = useState(0)
-  const [selectedItems, setSelectedItems] = useState([])
 
   function step2() {
     setStopwatch(0)
@@ -299,8 +304,8 @@ function App() {
         )}
         {step1Complete && (
           <FinalStep
-            next={(clickedIcons) => showScore(clickedIcons)}
-            selectedIcons={clickedIcons}
+            icons={allIcons}
+            next={(selectedItems) => showScore(selectedItems)}
           />
         )}
       </div>
