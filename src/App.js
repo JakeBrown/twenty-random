@@ -285,6 +285,11 @@ function App() {
     setStopwatch(0)
   }, [started])
 
+  useEffect(() => {
+    setStopwatch(0)
+    console.log('tick:' + stopwatch)
+  }, [stopwatch])
+
   return (
     <Page>
       <div className="page-body">
