@@ -14,7 +14,7 @@ function Icon({ name, size, color }) {
     )
     setHtml(i.html)
   }, [name, size, color])
-  return <div dangerouslySetInnerHTML={{ __html: html }} />
+  return <g dangerouslySetInnerHTML={{ __html: html }} />
 }
 
 export default Icon

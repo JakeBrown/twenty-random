@@ -134,6 +134,8 @@ while (chosenIcons.length < 20) {
     chosenIcons.push({ name: iconName, color: iconColor })
   }
 }
+console.log("Logging chosen icons")
+console.log(chosenIcons)
 
 let allIcons = []
 allIcons.push(...chosenIcons)
@@ -281,10 +283,6 @@ function App() {
   useEffect(() => {
     setStopwatch(0)
   }, [started])
-
-  useEffect(() => {
-    console.log('tick:' + stopwatch)
-  }, [stopwatch])
 
   return (
     <Page>

@@ -1,18 +1,15 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import styled from 'styled-components'
 import { Icon, iconList } from './icons'
 
 const Page = styled.div`
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  align-content: space-evenly;
+  background-color: var(--yellow);
   .active {
     background-color: var(--pink);
-  }
-
-  .container {
-    display: flex;
-    justify-content: space-evenly;
-    flex-wrap: wrap;
-    align-content: space-evenly;
-    background-color: var(--yellow);
   }
 
   .el {
@@ -29,7 +26,7 @@ const Page = styled.div`
   }
 `
 
-function IconPanel({ icons, selectable, selectedItems, setSelectedItems}) {
+function IconPanel({ icons, selectable, selectedItems, setSelectedItems }) {
   function clickedIcon(icon) {
     if (!selectable) {
       return
@@ -43,22 +40,23 @@ function IconPanel({ icons, selectable, selectedItems, setSelectedItems}) {
     } else {
       newSelected.splice(i, 1)
     }
-    setSelectedItems(newSelected);
+    setSelectedItems(newSelected)
   }
 
   return (
-    <div className="container">
-      {icons.map(function (icon, index) {
-        ;<div
+    <Page>
+      {icons.map((icon, index) => (
+        <div
           key={index}
-          className={selectable && selectedItems.includes(icon) && 'active'}
-          className="el"
+          className={`el ${
+            selectable && selectedItems.includes(icon) && 'active'
+          }`}
           onClick={() => clickedIcon(icon)}
         >
           <Icon name={icon.name} size="50px" color={icon.color} />
         </div>
-      })}
-    </div>
+      ))}
+    </Page>
   )
 }
 
