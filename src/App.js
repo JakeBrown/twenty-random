@@ -3,13 +3,11 @@ import styled from 'styled-components'
 import IconPanel from './IconPanel.js'
 import { Icon, iconList } from './icons'
 
-
-
 const Page = styled.div`
-    display: flex;
-    flex-direction: column;
-    min-height: 100%;
-    align-content: center;
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  align-content: center;
 
   h1 {
     text-transform: uppercase;
@@ -100,7 +98,7 @@ const Page = styled.div`
   p {
     font-size: 1.2rem;
   }
-`;
+`
 
 function shuffle(array) {
   var currentIndex = array.length,
@@ -121,7 +119,6 @@ function shuffle(array) {
 
   return array
 }
-
 
 let colors = ['blue', 'green', 'black']
 let chosenIcons = []
@@ -158,7 +155,6 @@ function getRndInteger(min, max) {
   return Math.floor(Math.random() * (max - min)) + min
 }
 
-
 function Start({ chosenIcons, next }) {
   return (
     <>
@@ -169,11 +165,19 @@ function Start({ chosenIcons, next }) {
           is to memorize 20 random images. As quickly as possible.
         </p>
         <p>
-          Memorizing isn't just looking at the images and trying to remember them. For most people, active memorization using chunking or another mnemonic device will be more effective.
+          Memorizing isn't just looking at the images and trying to remember
+          them. For most people, active memorization using chunking or another
+          mnemonic device will be more effective.
         </p>
       </div>
       <div className="controls">
-        <button onClick={() => { next() }}>Go!</button>
+        <button
+          onClick={() => {
+            next()
+          }}
+        >
+          Go!
+        </button>
       </div>
     </>
   )
@@ -192,10 +196,20 @@ function Step2({ chosenIcons, next, stopwatch, selectedIcons }) {
         <span style="margin-left: 10px">{stopwatch}</span>
       </div>
       <div className="controls">
-        <button onClick={() => { next(chosenIcons) }}>Done!</button>
+        <button
+          onClick={() => {
+            next(chosenIcons)
+          }}
+        >
+          Done!
+        </button>
       </div>
       <div className="iconPanel">
-        <IconPanel icons={chosenIcons} selectable={false} selectedIcons={selectedIcons} />
+        <IconPanel
+          icons={chosenIcons}
+          selectable={false}
+          selectedIcons={selectedIcons}
+        />
       </div>
     </>
   )
@@ -211,30 +225,30 @@ function FinalStep() {
         <IconPanel icons={allIcons} selectable={true} />
       </div>
       <div className="controls">
-        <button className="resetButton" onClick={reset}>Reset</button>
+        <button className="resetButton" onClick={reset}>
+          Reset
+        </button>
         <button onClick={checkResults}>Check</button>
       </div>
     </>
-
   )
 }
 
 function App() {
-
   const [step1Complete, setStep1Complete] = useState(false)
   const [started, setStarted] = useState(false)
   const [stopwatch, setStopwatch] = useState(0)
   const [selectedItems, setSelectedItems] = useState([])
 
   function step2() {
-    setStopwatch(0);
-    setStep1Complete(true);
+    setStopwatch(0)
+    setStep1Complete(true)
   }
 
   function reset() {
-    setStopwatch(0);
-    setStep1Complete(false);
-    setSelectedItems([]);
+    setStopwatch(0)
+    setStep1Complete(false)
+    setSelectedItems([])
   }
 
   function showScore(selectedItems) {
@@ -249,14 +263,13 @@ function App() {
     alert('Selected: ' + selectedItems.length + '. Correct: ' + score)
   }
 
-
   useEffect(() => {
     function sleep(ms) {
       return new Promise((resolve) => setTimeout(resolve, ms))
     }
     async function run() {
       while (true) {
-        setStopwatch(stopwatch + 1);
+        setStopwatch(stopwatch + 1)
         await sleep(1000)
       }
     }
@@ -267,14 +280,29 @@ function App() {
     setStopwatch(0)
   }, [started])
 
-
-
   return (
     <Page>
       <div className="page-body">
-        {!started && <Start next={() => { setStarted(true) }} />}
-        {(started && !step1Complete) && <Step2 stopwatch={stopwatch} chosenIcons={chosenIcons} next={() => setStep1Complete(true)} />}
-        {step1Complete && <FinalStep next={(clickedIcons) => showScore(clickedIcons)} selectedIcons={clickedIcons} />}
+        {!started && (
+          <Start
+            next={() => {
+              setStarted(true)
+            }}
+          />
+        )}
+        {started && !step1Complete && (
+          <Step2
+            stopwatch={stopwatch}
+            chosenIcons={chosenIcons}
+            next={() => setStep1Complete(true)}
+          />
+        )}
+        {step1Complete && (
+          <FinalStep
+            next={(clickedIcons) => showScore(clickedIcons)}
+            selectedIcons={clickedIcons}
+          />
+        )}
       </div>
       <div className="footer">
         <span>

@@ -3,6 +3,15 @@ import ReactDOM from 'react-dom'
 import 'regenerator-runtime/runtime'
 import 'normalize.css'
 import App from './App.js'
+import * as Sentry from '@sentry/react'
+import { Integrations } from '@sentry/tracing'
+
+Sentry.init({
+  dsn:
+    'https://faad86b5e28f4f6592dcfadff67fcdb2@o447635.ingest.sentry.io/5427710',
+  integrations: [new Integrations.BrowserTracing()],
+  tracesSampleRate: 1.0,
+})
 
 ReactDOM.render(
   <React.StrictMode>
