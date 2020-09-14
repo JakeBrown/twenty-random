@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { icon } from '@fortawesome/fontawesome-svg-core'
 
-
 function Icon({ name, size, color }) {
   const [html, setHtml] = useState('')
 
@@ -15,11 +14,7 @@ function Icon({ name, size, color }) {
     )
     setHtml(i.html)
   }, [name, size, color])
-  return (
-    <>
-      {html}
-    </>
-  )
+  return <div dangerouslySetInnerHTML={{ __html: html }} />
 }
 
 export default Icon
