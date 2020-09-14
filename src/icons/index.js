@@ -17,6 +17,6 @@ iconList.forEach((iconName) => {
 })
 
 // Export Icon svelte object
-import Icon from './Icon.svelte'
+import Icon from './Icon.js'
 
 export { iconList, Icon }

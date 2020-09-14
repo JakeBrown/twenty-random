@@ -1,4 +1,8 @@
-<style>
+import React from 'react'
+import styled from 'styled-components'
+import { Icon, iconList } from './icons'
+
+const Page = styled.div`
   .active {
     background-color: var(--pink);
   }
@@ -23,13 +27,12 @@
     align-items: center;
     justify-content: center;
   }
-</style>
+`
 
-<script>
-  export let icons
-  export let selectable
-  export let selectedItems = []
-  import { Icon } from './icons'
+
+
+function IconPanel({ icons, selectable, selectedItems }) {
+
   function clickedIcon(icon) {
     if (!selectable) {
       return
@@ -45,15 +48,19 @@
     // Trigger update
     selectedItems = selectedItems
   }
-</script>
 
-<div class="container">
-  {#each icons as icon, i}
-    <div
-      class:active={selectedItems.includes(icon)}
-      class="el"
-      on:click={() => clickedIcon(icon)}>
-      <Icon name={icon.name} size="50px" color={icon.color} />
+  return (
+    <div className="container">
+      {icons.map(function (icon, index) {
+        <div
+          className={selectedItems.includes(icon) && 'active'}
+          className="el"
+          onClick={() => clickedIcon(icon)}>
+          <Icon name={icon.name} size="50px" color={icon.color} />
+        </div>
+      })}
     </div>
-  {/each}
-</div>
+  )
+}
+
+export default IconPanel
