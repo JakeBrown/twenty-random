@@ -22,6 +22,8 @@
     "@fortawesome/fontawesome-svg-core": "^1.2.30",
     "@fortawesome/free-solid-svg-icons": "^5.14.0",
     "@rollup/plugin-json": "^4.1.0",
+    "@sentry/react": "^5.23.0",
+    "@sentry/tracing": "^5.23.0",
     "normalize.css": "^8.0.1",
     "parcel-bundler": "^1.12.4",
     "prettier-plugin-svelte": "^1.1.0",
