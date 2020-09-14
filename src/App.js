@@ -231,9 +231,6 @@ function FinalStep({ icons, next }) {
         />
       </div>
       <div className="controls">
-        <button className="resetButton" onClick={reset}>
-          Reset
-        </button>
         <button onClick={() => next(selectedItems)}>Check</button>
       </div>
     </>
@@ -315,6 +312,9 @@ function App() {
       </div>
       <div className="footer">
         <span>
+          <button className="resetButton" onClick={reset}>
+            Reset
+          </button>
           &copy; {new Date().getFullYear()}
           <a href="https://www.jakebrown.io">Jake Brown</a>
         </span>
