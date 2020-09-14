@@ -222,7 +222,7 @@ function FinalStep() {
         Now see if you can pick the twenty images you saw on the last screen.
       </p>
       <div className="iconPanel">
-        <IconPanel icons={allIcons} selectable={true} />
+        <IconPanel icons={allIcons} selectable={true} selectedItems={selectedItems} setSelectedItems={(items)=>setSelectedItems(items)}/>
       </div>
       <div className="controls">
         <button className="resetButton" onClick={reset}>

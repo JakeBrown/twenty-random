@@ -29,33 +29,32 @@ const Page = styled.div`
   }
 `
 
-
-
-function IconPanel({ icons, selectable, selectedItems }) {
-
+function IconPanel({ icons, selectable, selectedItems, setSelectedItems}) {
   function clickedIcon(icon) {
     if (!selectable) {
       return
     }
+    let newSelected = [...selectedItems]
     // Find the index in the selection list, if it exists
-    let i = selectedItems.indexOf(icon)
+    let i = newSelected.indexOf(icon)
     // If the icon has not been selected, then add it
     if (i == -1) {
-      selectedItems.push(icon)
+      newSelected.push(icon)
     } else {
-      selectedItems.splice(i, 1)
+      newSelected.splice(i, 1)
     }
-    // Trigger update
-    selectedItems = selectedItems
+    setSelectedItems(newSelected);
   }
 
   return (
     <div className="container">
       {icons.map(function (icon, index) {
-        <div
-          className={selectedItems.includes(icon) && 'active'}
+        ;<div
+          key={index}
+          className={selectable && selectedItems.includes(icon) && 'active'}
           className="el"
-          onClick={() => clickedIcon(icon)}>
+          onClick={() => clickedIcon(icon)}
+        >
           <Icon name={icon.name} size="50px" color={icon.color} />
         </div>
       })}
