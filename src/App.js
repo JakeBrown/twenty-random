@@ -274,7 +274,7 @@ function App() {
     }
     async function run() {
       while (true) {
-        setStopwatch(stopwatch + 1)
+        setStopwatch((prevState) => prevState + 1)
         await sleep(1000)
       }
     }
@@ -286,7 +286,6 @@ function App() {
   }, [started])
 
   useEffect(() => {
-    setStopwatch(0)
     console.log('tick:' + stopwatch)
   }, [stopwatch])
 
