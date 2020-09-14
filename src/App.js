@@ -193,7 +193,7 @@ function Step2({ chosenIcons, next, stopwatch, selectedIcons }) {
       </p>
       <div className="timer">
         <Icon name="clock" size="20px" color="" />
-        <span style="margin-left: 10px">{stopwatch}</span>
+        <span style={{'marginLeft': '10px'}}>{stopwatch}</span>
       </div>
       <div className="controls">
         <button
